@@ -1,0 +1,13 @@
+<apex:page controller="Base" extensions="Derived">
+<apex:form >
+    <apex:pageBlock title="{!$User.FirstName}">
+        Your Account Name: <apex:outputField value="{!account.name}"/>               
+        <apex:commandButton action="{!callDerived}" value="Get Contacts..."/>
+        <apex:pageblockSection title="Contacts">
+            <apex:pageblockTable value="{!AllContactsForAccount}" var="contact">
+                <apex:column value="{!contact.LastName}"/>
+            </apex:pageblockTable>
+        </apex:pageblockSection>                
+    </apex:pageBlock>
+</apex:form>
+</apex:page>
