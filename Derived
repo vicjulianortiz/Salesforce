@@ -1,0 +1,29 @@
+public with sharing class Derived {
+    public Integer age {get; set;}
+    public Id acctId {get; set;}
+    Base base;
+    
+    public Derived(Base base) { 
+        age = 15;
+        this.base = base;
+        acctId=base.accountID;
+    }
+
+    public PageReference callDerived() {
+        age = age + 10;
+        base.phone = 2222222; 
+        base.AllContactsForAccount=getAllContactsDerived();
+        system.debug('base.AllContactsForAccount--->'+base.AllContactsForAccount);
+        return null;
+    }
+  
+    public List<Contact> getAllContactsDerived() {
+        system.debug('acctId--->'+acctId);
+        List<Contact> lstContacts=[Select Id, LastName from Contact where accountId=:acctId]; 
+        system.debug('lstContacts--->'+lstContacts);
+        if(!lstContacts.IsEmpty() && lstContacts.size()>=1)
+            return lstContacts;
+        else
+            return null;
+    }
+}
